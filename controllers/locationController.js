@@ -8,43 +8,29 @@ module.exports = {
         SELECT l.buildingcode, b.buildingname, l.locationcode, l.Latitude, l.Longitude
         FROM location AS l
         JOIN building AS b ON l.buildingcode  = b.buildingcode
+        ORDER BY l.buildingcode, l.locationcode
       `);
-      let buildingCode = [];
-      let buildingName = [];
+
       let filterResult = [];
-
-      result.forEach((item, _index) => {
-        buildingCode = [...buildingCode, item.buildingcode];
-        buildingName = [...buildingName, item.buildingname];
-      });
-      buildingCode = [...new Set(buildingCode)];
-      buildingName = [...new Set(buildingName)];
-
-      buildingCode.forEach((item, index) => {
-        filterResult = [
-          ...filterResult,
-          {
-            buildingcode: item,
-            buildingname: buildingName[index],
-            location: [],
-          },
-        ];
-      });
-
-      let building = [];
       if (result.length > 0) {
-        building = [
+        filterResult = [
           {
             buildingcode: result[0].buildingcode,
             buildingname: result[0].buildingname,
-            location: [],
+            location: [
+              {
+                locationcode: result[0].locationcode,
+                latitude: result[0].Latitude,
+                longitude: result[0].Longitude,
+              }
+            ],
           },
         ];
 
         for (let i = 1, arri = result.length; i < arri; ++i) {
           if (result[i].buildingcode !== result[i - 1].buildingcode) {
-            building = [
-              ...building,
+            filterResult = [
+              ...filterResult,
               {
                 buildingcode: result[i].buildingcode,
                 buildingname: result[i].buildingname,
@@ -52,35 +38,35 @@ module.exports = {
               },
             ];
           }
-        }
-      }
-
-
-      for (let i = 0, arri = result.length; i < arri; ++i) {
-        for (let j = 0, arrj = filterResult.length; j < arrj; ++j) {
-          if (result[i].buildingcode === filterResult[j].buildingcode) {
-            filterResult[j] = {
-              ...filterResult[j],
-              location: [
-                ...filterResult[j].location,
-                {
-                  locationcode: result[i].locationcode,
-                  latitude: result[i].Latitude,
-                  longitude: result[i].Longitude,
-                },
-              ],
-            };
-            break;
+          for (let j = 0, arrj = filterResult.length; j < arrj; ++j) {
+            if (result[i].buildingcode === filterResult[j].buildingcode) {
+              filterResult[j] = {
+                ...filterResult[j],
+                location: [
+                  ...filterResult[j].location,
+                  {
+                    locationcode: result[i].locationcode,
+                    latitude: result[i].Latitude,
+                    longitude: result[i].Longitude,
+                  },
+                ],
+              };
+              break;
+            }
           }
         }
       }
 
       res.status(200).json({
+        status: "success",
         result: [...filterResult],
       });
     } catch (err) {
-      res.status(500);
-      res.send(err.message);
+      res.status(500).json({
+        status: "failed",
+        message: err.message,
+        result: {...err}
+      })
     }
   },
 };
