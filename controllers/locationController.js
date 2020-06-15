@@ -15,13 +15,13 @@ module.exports = {
       if (result.length > 0) {
         filterResult = [
           {
-            buildingcode: result[0].buildingcode,
-            buildingname: result[0].buildingname,
+            buildingCode: result[0].buildingcode,
+            buildingName: result[0].buildingname,
             location: [
               {
-                locationcode: result[0].locationcode,
-                latitude: result[0].Latitude,
-                longitude: result[0].Longitude,
+                locationCode: result[0].locationcode,
+                lat: result[0].Latitude,
+                lng: result[0].Longitude,
               }
             ],
           },
@@ -32,22 +32,22 @@ module.exports = {
             filterResult = [
               ...filterResult,
               {
-                buildingcode: result[i].buildingcode,
-                buildingname: result[i].buildingname,
+                buildingCode: result[i].buildingcode,
+                buildingName: result[i].buildingname,
                 location: [],
               },
             ];
           }
           for (let j = 0, arrj = filterResult.length; j < arrj; ++j) {
-            if (result[i].buildingcode === filterResult[j].buildingcode) {
+            if (result[i].buildingcode === filterResult[j].buildingCode) {
               filterResult[j] = {
                 ...filterResult[j],
                 location: [
                   ...filterResult[j].location,
                   {
-                    locationcode: result[i].locationcode,
-                    latitude: result[i].Latitude,
-                    longitude: result[i].Longitude,
+                    locationCode: result[i].locationcode,
+                    lat: result[i].Latitude,
+                    lng: result[i].Longitude,
                   },
                 ],
               };
