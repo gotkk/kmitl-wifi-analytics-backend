@@ -61,3 +61,7 @@ ESCAPED BY '"'
 LINES TERMINATED BY '\r\n' 
 IGNORE 1 LINES 
 (`form_id`, `channel`, `ssid_count`);
+
+
+ALTER TABLE ssid_dbm
+ADD percent DOUBLE;

@@ -14,7 +14,7 @@ app.get("/", (_req, res, _next) => {
 });
 
 app.use("/test", require("./routes/test"));
-
 app.use("/location", require("./routes/location"));
+app.use("/form", require("./routes/form"));
 
 module.exports = app;

@@ -21,16 +21,16 @@ CREATE TABLE location (
 );
 
 CREATE TABLE form(
-	form_id INT NOT NULL PRIMARY KEY,
+	form_id VARCHAR(24) NOT NULL PRIMARY KEY,
 	timestamp VARCHAR(24) NOT NULL,
 	building VARCHAR(200) NOT NULL,
 	building_code VARCHAR(24) NOT NULL,
-	floor INT,
+	floor VARCHAR(24),
 	detail VARCHAR(200)
 );
 
 CREATE TABLE connection_speed(
-	form_id INT NOT NULL,
+	form_id VARCHAR(24) NOT NULL,
 	ssid VARCHAR(200) NOT NULL,
 	download_inside INT NOT NULL,
 	download_outside INT NOT NULL,
@@ -42,7 +42,7 @@ CREATE TABLE connection_speed(
 );
 
 CREATE TABLE ssid_count(
-	form_id INT NOT NULL,
+	form_id VARCHAR(24) NOT NULL,
 	channel INT NOT NULL,
 	ssid_count INT NOT NULL,
 	PRIMARY KEY(form_id, channel),
@@ -51,7 +51,7 @@ CREATE TABLE ssid_count(
 );
 
 CREATE TABLE ssid_dbm(
-	form_id INT NOT NULL,
+	form_id VARCHAR(24) NOT NULL,
 	ssid VARCHAR(200) NOT NULL,
 	mac_address VARCHAR(24) NOT NULL,
 	chanel INT NOT NULL,
