@@ -5,7 +5,7 @@ module.exports = {
     try {
       const pool = await poolPromise;
       const result = await pool.query(`
-        SELECT b_location.*, b_avg.quantity, b_avg.avg_percent
+        SELECT b_location.*,b_avg.max, b_avg.min, b_avg.quantity, b_avg.avg_percent
         FROM 
           (
             SELECT l.building_code, b.building_name, l.location_code, l.lat, l.lng
@@ -15,7 +15,8 @@ module.exports = {
           ) b_location
         LEFT JOIN 
           (
-            SELECT f.building_code, COUNT(*) AS 'quantity', AVG(dbm.percent) AS 'avg_percent'
+            SELECT f.building_code, b.building_name, MAX(dbm.percent) AS 'max' , MIN(dbm.percent) AS 'min', 
+            COUNT(*) AS 'quantity', AVG(dbm.percent) AS 'avg_percent'
             FROM form AS f, building AS b, ssid_dbm AS dbm
             WHERE f.building_code = b.building_code AND f.form_id = dbm.form_id
             GROUP BY f.building_code
@@ -30,13 +31,15 @@ module.exports = {
             buildingCode: result[0].building_code,
             buildingName: result[0].building_name,
             quantity: result[0].quantity,
+            max: result[0].max,
+            min: result[0].min,
             avg_percent: result[0].avg_percent,
             location: [
               {
                 locationCode: result[0].location_code,
                 lat: result[0].lat,
                 lng: result[0].lng,
-              }
+              },
             ],
           },
         ];
@@ -48,6 +51,8 @@ module.exports = {
               {
                 buildingCode: result[i].building_code,
                 buildingName: result[i].building_name,
+                max: result[i].max,
+                min: result[i].min,
                 quantity: result[i].quantity,
                 avg_percent: result[i].avg_percent,
                 location: [],
@@ -81,8 +86,8 @@ module.exports = {
       res.status(500).json({
         status: "failed",
         message: err.message,
-        result: {...err}
-      })
+        result: { ...err },
+      });
     }
   },
 };
