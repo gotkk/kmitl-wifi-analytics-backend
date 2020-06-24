@@ -56,6 +56,7 @@ CREATE TABLE ssid_dbm(
 	mac_address VARCHAR(24) NOT NULL,
 	chanel INT NOT NULL,
 	dbm INT NOT NULL,
+	percent DOUBLE,
 	PRIMARY KEY(form_id, mac_address),
   	CONSTRAINT `fk_ssid_dbm_form`
     FOREIGN KEY (form_id) REFERENCES form (form_id)

@@ -49,7 +49,7 @@ FIELDS TERMINATED BY ','
 OPTIONALLY ENCLOSED BY '"' 
 ESCAPED BY '"' 
 LINES TERMINATED BY '\r\n' 
-IGNORE 1 LINES (`form_id`, `ssid`, `mac_address`, `chanel`, `dbm`);
+IGNORE 1 LINES (`form_id`, `ssid`, `mac_address`, `chanel`, `dbm`, `percent`);
 
 
 LOAD DATA LOW_PRIORITY LOCAL INFILE 'C:\\Users\\Kuser\\Downloads\\ssid_count.csv' 
