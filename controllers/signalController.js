@@ -26,4 +26,28 @@ module.exports = {
       });
     }
   },
+  getChannelCounter: async (req, res, _next) => {
+    let { form_id } = req.params;
+    try {
+      const pool = await poolPromise;
+      const result = await pool.query(
+        `
+          SELECT *
+          FROM ssid_count AS sc
+          WHERE sc.form_id = ?
+        `,
+        [form_id]
+      );
+      res.status(200).json({
+        status: "success",
+        result: [...result],
+      });
+    } catch (err) {
+      res.status(500).json({
+        status: "failed",
+        message: err.message,
+        result: { ...err },
+      });
+    }
+  },
 };
