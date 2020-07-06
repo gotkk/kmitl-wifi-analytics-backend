@@ -32,9 +32,9 @@ CREATE TABLE form(
 CREATE TABLE connection_speed(
 	form_id VARCHAR(24) NOT NULL,
 	ssid VARCHAR(200) NOT NULL,
-	download_inside INT NOT NULL,
-	download_outside INT NOT NULL,
-	youtube_cspeed INT NOT NULL,
+	download_inside VARCHAR(24) NOT NULL,
+	download_outside VARCHAR(24) NOT NULL,
+	youtube_cspeed VARCHAR(24) NOT NULL,
 	note VARCHAR(1000),
 	PRIMARY KEY(form_id, ssid),
   CONSTRAINT `fk_connection_speed_form`
