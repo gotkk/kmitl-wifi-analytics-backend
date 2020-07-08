@@ -61,3 +61,9 @@ CREATE TABLE ssid_dbm(
   	CONSTRAINT `fk_ssid_dbm_form`
     FOREIGN KEY (form_id) REFERENCES form (form_id)
 );
+
+
+DELETE FROM connection_speed;
+DELETE FROM ssid_count;
+DELETE FROM ssid_dbm;
+DELETE FROM form;
