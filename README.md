@@ -18,7 +18,7 @@ DBConnectLimit=db_limit
 * host is the host location of MariaDB database.
 * user is the username of MariaDB Database.
 * password is the password of MariaDB Database.
-* database is the database name of MS SQL Server Database.
+* database is the database name of MariaDB Database.
 * db_limit is the number of limit to connect database default set db_limit is 5.
 
 ### Installing
@@ -33,7 +33,7 @@ npm start
 ```
 
 ## Advisor
-Asst.Prof.Dr.Thanunchai Threepak
+* Asst.Prof.Dr.Thanunchai Threepak
 
 ## Authors
 * Bunmak Kangrang - [gotkk](https://github.com/gotkk).
